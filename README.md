@@ -26,6 +26,8 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 > pip install opencv-python
 
 > pip install scikit-learn
+
+> pip install pyperclip
 <br>
 
 ### 설명
@@ -36,3 +38,4 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 6. opencv-python - 이미지 처리
 7. sklearn - k-means 통해 색상추출할 때 필요
 8. 소스 코드의 import urllib.request 는 파이썬 내장 라이브러리이므로 다운받을 필요 X
+9. pyperclip - 로그인시 캡차를 우회하기 위한 것

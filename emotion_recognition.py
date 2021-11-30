@@ -70,7 +70,7 @@ while True:
     k = cv2.waitKey(1) & 0xFF
     if k == ord('q') or k == 27:
         break
-    if k == ord('c') and preds != None:
+    if k == ord('c'): #preds != None 에러, 멈춤 -> 항상 preds의 값은 None이 아님 최소한 하나의 거짓이 있어야함 애매모호 -> 사람이 안보이는 경우는 예측할 값이 없는거잖아 -> 근데  c를 누르는거면 사람이 있는거니까 거기까지는 생각안해도 될 듯 
             percent = max(preds)    # 표정 예측치 중 가장 큰 값
             index = np.where(percent == preds)[0][0]    # 가장 큰 표정 예측치의 index 값 구하기
             print(EMOTIONS[index], percent*100)

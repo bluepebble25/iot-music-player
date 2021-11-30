@@ -6,8 +6,9 @@ import urllib.request
 import numpy as np
 import cv2
 from sklearn.cluster import KMeans
+import pyperclip
 
-def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
+def url_to_image(url, readFlag=cv2.IMREAD_COLOR): #이미지 주소(src)를 가져옴
     # download the image, convert it to a NumPy array, and then read
     # it into OpenCV format
     resp = urllib.request.urlopen(url)
@@ -31,13 +32,53 @@ def centroid_histogram(clt):
     # return the histogram
     return hist
 
+# 로그인 함수
+def login() :
+    while True :
+        id = input("당신의 네이버 아이디를 입력하세요 : ")
+        pyperclip.copy(id) #캡차를 피하기위한 작업
+        driver.find_element_by_id('id').send_keys(Keys.CONTROL + 'v')
+        time.sleep(0.5)
+
+        pw = input("당신의 네이버 패스워드를 입력하세요 : ")
+        pyperclip.copy(pw)
+        time.sleep(0.5)
+        driver.find_element_by_id('pw').send_keys(Keys.CONTROL + 'v')
+
+        driver.find_element_by_id('log.login').click()
+        time.sleep(1)
+
+        # 로그인 성공여부에 따른 처리
+        try :
+            # 로그인 실패시 메세지가 생기기 때문에 그에 관련된 박스를 찾음
+            login_error = driver.find_element_by_css_selector('#err_common > div') 
+            print("로그인 실패", login_error.text) # 실패시 관련문제 알려주기
+            driver.find_element_by_id('id').clear() # 그전에 썻던 아이디 input창에서 지우기
+        except :
+            print("로그인 성공")
+            # 로그인 성공시 알려주고 아이디와 패스워드 등록여부 거절누르기
+            driver.find_elements_by_xpath('//*[@id="new.dontsave"]')[0].click()
+            time.sleep(2)
+            break
+
 
 # chromedriver.exe 위치 (chromedriver는 이 py 프로그램과 같은 폴더에 있어야 하고, 절대경로로 지정해야 함)
-driver = webdriver.Chrome(r"D:\3학년2학기\무선네트워크\무선네트워크_프로젝트\chromedriver.exe")
+driver = webdriver.Chrome(r"C:\Users\kim23\Desktop\대학생과제\3학년 과제\2학기\무선네트워크\기말\chromedriver.exe")
 driver.get("https://vibe.naver.com/today")
 
-# 광고 모달창 끄기
+# 광고 모달창 끄기 find_* 이게 그 요소
 driver.find_elements_by_xpath('//*[@id="app"]/div[2]/div/div/a[2]')[0].click()
+
+# 로그인박스 클릭하여 로그인 창으로 이동
+driver.find_elements_by_xpath('//*[@id="header"]/div[1]/div[1]/a')[0].click()
+
+#가장 먼저 로그인 먼저 실행
+# 혹시나 로그인 되있을때를 위한 대비
+try :
+    nick_name = driver.find_element_by_css_selector('#header > div.my_menu > div.profile_area > div > a > div.nickname')
+    print(nick_name.text , "님 안녕하세요")
+except :
+    login()
 
 # 검색어 input박스 찾기
 search_input = driver.find_elements_by_xpath('//*[@id="search_keyword"]')[0]
@@ -48,25 +89,29 @@ while True:
         break
     # 검색 바에 검색어 전달 및 엔터
     search_input.send_keys(music_name)
-    search_input.send_keys(Keys.RETURN) # 엔터
+    search_input.send_keys(Keys.RETURN) # keys.RETURN = 엔터임
 
     # 동적 정보(javascript로 생성된 정보)를 조금 기다려준다
     time.sleep(3)
-
     # '노래' 리스트의 첫번째 곡 클릭 (가장 정확한 검색결과일 확률이 높기 때문)
     driver.find_elements_by_xpath('//*[@id="content"]/div[2]/div/div[1]/div[1]/div[2]/div[1]/span[1]/a')[0].click()
     time.sleep(3)
+
+    #재생을 눌러야지 총 재생시간을 알수 있음
+    driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[2]/div[2]/div/div[1]/a[1]').click()
+    time.sleep(5)
 
     """타이틀, 가수, 가사, 커버 긁어오는 부분"""
     source = driver.page_source
     bs = bs4.BeautifulSoup(source, 'lxml')  # lxml로 데이터 파싱 (pip로 설치 필요)
 
-    cover_url = bs.select_one('#content > div.summary_section > div.summary_thumb > img')['src']
+    # 함수방식이 SELECT를 쓰기때문에 그걸로 가져와야함
+    cover_url = bs.select_one('#content > div.summary_section > div.summary_thumb > img')['src'] #이미지 주소를 가져옴
     title = bs.select_one('#content > div.summary_section > div.summary > div.text_area > h2 > span.title').get_text()
     lyrics = bs.select_one('#content > div.end_section.section_lyrics > p').get_text()
-
-    # print(title[2:] + '\n')    # 앞의 '곡명'이라는 글자 빼고 출력
-    if lyrics != None:
+    
+    # print(title[2:] + '\n')    # 앞의 '곡명'이라는 글자 빼고 출력하고 가사만 가져오게
+    if lyrics != None: #가사가 없으면 예외처리
         print(lyrics)
 
 
@@ -86,3 +131,8 @@ while True:
 
     hist = centroid_histogram(clt)
     print(hist)
+
+    # 해당 태그 영역에 이 클래스를 가진 정보가져오기
+    play_time = bs.find("span",{"class":"remain"})
+    #총 플레이 타임 보여주기
+    print(play_time.text)

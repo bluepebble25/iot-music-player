@@ -36,3 +36,25 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 6. opencv-python - 이미지 처리
 7. sklearn - k-means 통해 색상추출할 때 필요
 8. 소스 코드의 import urllib.request 는 파이썬 내장 라이브러리이므로 다운받을 필요 X
+<br>
+
+## 얼굴 표정 인식
+아래 블로그 참고
+https://m.blog.naver.com/roboholic84/221633210887
+
+이 글에서는 아나콘다를 설치해 주피터 노트북 환경에서 실습하고 있는데, 그럴 필요 없음.
+다음과 같이 하면 아나콘다, 주피터노트북 필요 X
+
+1) 필요 모듈 pip으로 설치
+tensorflow / keras / opencv-python / numpy
+
+2) 인터넷 창에 링크 붙여넣기 하고 화면에 대고 오른쪽 버튼 눌러 다른이름으로 저장해서 다운.
+다음 파일들을 표정인식 py 프로그램과 같은 디렉토리에 넣어놓기.
+- 얼굴인식 학습결과 파일
+https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml
+- 표정인식 학습결과 파일
+https://mechasolution.vn/source/blog/AI-tutorial/Emotion_Recognition/emotion_model.hdf5
+
+3) 파이썬 파일에 블로그에 있는 코드 붙여넣고 실행 (웹캠이 연결된 상태여야함)
+난 안경을 쓰고 앞머리가 있어서 그런지 인식이 잘 안됐음.
+인식이 잘 안된다면 안경을 벗거나 눈썹이 잘 보이도록 할 것.

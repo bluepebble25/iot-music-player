@@ -26,6 +26,8 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 > pip install opencv-python
 
 > pip install scikit-learn
+
+> pip install pyperclip
 <br>
 
 ### 설명
@@ -36,6 +38,7 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 6. opencv-python - 이미지 처리
 7. sklearn - k-means 통해 색상추출할 때 필요
 8. 소스 코드의 import urllib.request 는 파이썬 내장 라이브러리이므로 다운받을 필요 X
+9. 셀리니움으로 네이버와 크롬에서 로그인을 시조할시 로봇임을 탐지하는 캠처가 뜨지 않고 온전히 로그인 하기 위한것
 <br>
 
 ## 얼굴 표정 인식

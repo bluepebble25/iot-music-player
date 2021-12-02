@@ -52,7 +52,7 @@ while True:
  
         # Label printing
         for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):    # zip은 두 인자를 튜플쌍의 형태로 반환 (EMOTIONS값 1, preds값 1),(EMOTIONS값 2, preds값 2) 
-            text = "{}: {:.2f}%".format(emotion, prob * 100)    # 아마도 비율?
+            text = "{}: {:.2f}%".format(emotion, prob * 100)    # 0.xxx 형태의 값을 백분율 값으로 바꿔줌
             w = int(prob * 300)
             cv2.rectangle(canvas, (7, (i * 35) + 5), (w, (i * 35) + 35), (0, 0, 255), -1)
             cv2.putText(canvas, text, (10, (i * 35) + 23), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 2)
@@ -68,9 +68,9 @@ while True:
     
     # q to quit
     k = cv2.waitKey(1) & 0xFF
-    if k == ord('q') or k == 27:
+    if k == ord('q') or k == 27:    # 'q' 혹은 'Enter' 누르면 프로그램 종료
         break
-    if k == ord('c'): #preds != None 에러, 멈춤 -> 항상 preds의 값은 None이 아님 최소한 하나의 거짓이 있어야함 애매모호 -> 사람이 안보이는 경우는 예측할 값이 없는거잖아 -> 근데  c를 누르는거면 사람이 있는거니까 거기까지는 생각안해도 될 듯 
+    if k == ord('c'):
             percent = max(preds)    # 표정 예측치 중 가장 큰 값
             index = np.where(percent == preds)[0][0]    # 가장 큰 표정 예측치의 index 값 구하기
             print(EMOTIONS[index], percent*100)

@@ -31,6 +31,35 @@ def centroid_histogram(clt):
     # return the histogram
     return hist
 
+# 로그인 함수
+def login() :
+    while True :
+        id = input("당신의 네이버 아이디를 입력하세요 : ")
+        pyperclip.copy(id) #캡차를 피하기위한 작업
+        driver.find_element_by_id('id').send_keys(Keys.CONTROL + 'v')
+        time.sleep(0.5)
+
+        pw = input("당신의 네이버 패스워드를 입력하세요 : ")
+        pyperclip.copy(pw)
+        time.sleep(0.5)
+        driver.find_element_by_id('pw').send_keys(Keys.CONTROL + 'v')
+
+        driver.find_element_by_id('log.login').click()
+        time.sleep(1)
+
+        # 로그인 성공여부에 따른 처리
+        try :
+            # 로그인 실패시 메세지가 생기기 때문에 그에 관련된 박스를 찾음
+            login_error = driver.find_element_by_css_selector('#err_common > div') 
+            print("로그인 실패", login_error.text) # 실패시 관련문제 알려주기
+            driver.find_element_by_id('id').clear() # 그전에 썻던 아이디 input창에서 지우기
+        except :
+            print("로그인 성공")
+            # 로그인 성공시 알려주고 아이디와 패스워드 등록여부 거절누르기
+            driver.find_elements_by_xpath('//*[@id="new.dontsave"]')[0].click()
+            time.sleep(2)
+            break
+
 
 # chromedriver.exe 위치 (chromedriver는 이 py 프로그램과 같은 폴더에 있어야 하고, 절대경로로 지정해야 함)
 driver = webdriver.Chrome(r"D:\3학년2학기\무선네트워크\무선네트워크_프로젝트\chromedriver.exe")
@@ -38,6 +67,17 @@ driver.get("https://vibe.naver.com/today")
 
 # 광고 모달창 끄기
 driver.find_elements_by_xpath('//*[@id="app"]/div[2]/div/div/a[2]')[0].click()
+
+# 로그인박스 클릭하여 로그인 창으로 이동
+driver.find_elements_by_xpath('//*[@id="header"]/div[1]/div[1]/a')[0].click()
+
+#가장 먼저 로그인 먼저 실행
+# 혹시나 로그인 되있을때를 위한 대비
+try :
+    nick_name = driver.find_element_by_css_selector('#header > div.my_menu > div.profile_area > div > a > div.nickname')
+    print(nick_name.text , "님 안녕하세요")
+except :
+    login()
 
 # 검색어 input박스 찾기
 search_input = driver.find_elements_by_xpath('//*[@id="search_keyword"]')[0]
@@ -86,3 +126,8 @@ while True:
 
     hist = centroid_histogram(clt)
     print(hist)
+    
+    # 해당 태그 영역에 이 클래스를 가진 정보가져오기
+    play_time = bs.find("span",{"class":"remain"})
+    #총 플레이 타임 보여주기
+    print(play_time.text)

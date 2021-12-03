@@ -26,6 +26,8 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 > pip install opencv-python
 
 > pip install scikit-learn
+
+> pip install pyperclip
 <br>
 
 ### 설명

@@ -13,7 +13,6 @@
 ## 프로그램 구조도
 ![구조도](https://user-images.githubusercontent.com/71175587/145203735-c703de05-6495-4e59-a8f2-7bfa165f1bae.PNG)
 
-
 ## library
 ### install
 1. 크롬 드라이버 설치 참고자료
@@ -56,3 +55,14 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 3. tensorflow, keras : 딥러닝 라이브러리. 표정인식에 필요
 4. sklearn : k-means로 색상추출할 때 필요
 <br>
+
+## 프로그램
+- [emotion_music_player.py](https://github.com/bluepebble25/iot-music-player/blob/main/emotion_music_player.py)
+- [Hue 브릿지의 API에 HTTP Request로 조명 컨트롤 요청하는 함수](https://github.com/bluepebble25/iot-music-player/blob/main/control_hue.py)
+- [코드분석](https://github.com/bluepebble25/iot-music-player/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B2%B0%EA%B3%BC_%EB%B3%B4%EA%B3%A0%EC%84%9C.md)
+<br>
+
+## 결과
+<img width="435" alt="실행결과1" src="https://user-images.githubusercontent.com/80368992/144711901-6dc7505a-d133-4655-a260-6bd381a0b645.PNG"></br> 
+
+<img width="594" alt="실행결과3" src="https://user-images.githubusercontent.com/80368992/144711905-942cdbd8-3316-4d8f-a1ce-09d465190e47.PNG">

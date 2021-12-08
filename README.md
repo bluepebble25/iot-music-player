@@ -1,8 +1,18 @@
-# iot-music-player
+# 3학년 2학기 무선네트워크 팀프로젝트
 
 ## 개요
 - 주제: 표정인식 자동 뮤직 플레이어 & 필립스 휴 연동
 - 목표: 딥러닝 모델을 바탕으로 표정을 인식한 후, 감정에 적합한 플레이리스트를 자동재생하고, 앨범 커버의 색상을 추출해 LED 불빛으로 시각화하기
+
+## 필요 부품
+- 라즈베리파이, 카메라 센서, 필립스 Hue 전구 및 브릿지, 전구 소켓, 110V -> 220V 전압 변환기, LAN선, 무선공유기<br>
+
+![필요부품](https://user-images.githubusercontent.com/71175587/145203707-7c18a52a-2207-4f37-954f-63603d45deb8.PNG)
+
+
+## 프로그램 구조도
+![구조도](https://user-images.githubusercontent.com/71175587/145203735-c703de05-6495-4e59-a8f2-7bfa165f1bae.PNG)
+
 
 ## library
 ### install
@@ -46,17 +56,3 @@ https://book.coalastudy.com/data_crawling/week6/stage2 <br>
 3. tensorflow, keras : 딥러닝 라이브러리. 표정인식에 필요
 4. sklearn : k-means로 색상추출할 때 필요
 <br>
-
-## 얼굴 표정 인식
-아래 블로그 참고
-https://m.blog.naver.com/roboholic84/221633210887
-
-1) 인터넷 창에 링크 붙여넣기 하고 화면에 대고 오른쪽 버튼 눌러 다른이름으로 저장해서 다운.
-- 얼굴인식 학습결과 파일
-https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml
-- 표정인식 학습결과 파일
-https://mechasolution.vn/source/blog/AI-tutorial/Emotion_Recognition/emotion_model.hdf5
-
-2) 파이썬 파일에 블로그에 있는 코드 붙여넣고 실행 (웹캠이 연결된 상태여야함)
-- 표정인식 py 파일에서 머신러닝 결과 파일의 경로를 설정해줘야 한다.
-- 인식이 잘 안된다면 안경을 벗거나 눈썹이 잘 보이도록 할 것.
